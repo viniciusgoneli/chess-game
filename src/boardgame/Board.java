@@ -2,11 +2,11 @@ package boardgame;
 
 import chess.BoardException;
 
-public class Board {
+public class Board {//Essa classe controla as interações e funções executadas no tabuleiro.
 	
-	private int rows;
-	private int columns;
-	private Piece[][] pieces;
+	private int rows;//Rows representa a quantidade de linhas do tabuleiro.
+	private int columns;//Columns representa a quantidade de colunas do tabuleiro.
+	private Piece[][] pieces;//Essa variável é utilizada para armazenar a posição de determinada peça no tabuleiro.
 	
 	public Board(int rows, int columns) {
 		if (rows < 1 || columns < 1) {
@@ -32,19 +32,33 @@ public class Board {
 		return pieces[row][column];
 	}
 	
-	public Piece piece(Position position) {
+	public Piece piece(Position position) {//Esse é o método responsável em retornar uma peça numa dada posição.
 		if(!positionExists(position)) {
 			throw new BoardException("Position not on the board.");
 		}
 		return pieces[position.getRow()][position.getColumn()];
 	}
 	
-	public void placePiece(Piece piece, Position position) {
+	public void placePiece(Piece piece, Position position) {//Esse é o método responsável por definir a posição de determinada peça e colocá-la no tabuleiro.
 		if(thereIsAPiece(position)) {
 			throw new BoardException("There's already a piece on position "+position);
 		}
 		pieces[position.getRow()][position.getColumn()] = piece;
 		piece.position = position;
+	}
+	
+	public Piece removePiece(Position position) {
+		if(!positionExists(position)) {
+			throw new BoardException("Position not on the board.");
+		}
+		if(piece(position) == null) {
+			return null;
+		}else {
+			Piece aux = piece(position);
+			aux.position = null;
+			pieces[position.getRow()][position.getColumn()] = null;
+			return aux;
+		}
 	}
 	
 	private boolean positionExists(int row,int column) {

@@ -1,9 +1,9 @@
 package boardgame;
 
-public class Position {
+public class Position {//Essa classe representa as posições da camada de tabuleiro.
 	
-	private int row;
-	private int column;
+	private int row;//Row representa a linha da posição da camda de tabuleiro, que é a mesma de matriz.
+	private int column;//Column representa a coluna da posição da camda de tabuleiro, que é a mesma de matriz.
 	
 	public Position(int row, int column) {
 		super();
@@ -13,14 +13,8 @@ public class Position {
 	public int getRow() {
 		return row;
 	}
-	public void setRow(int row) {
-		this.row = row;
-	}
 	public int getColumn() {
 		return column;
-	}
-	public void setColumn(int column) {
-		this.column = column;
 	}
 	
 	@Override
