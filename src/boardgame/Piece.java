@@ -20,7 +20,7 @@ public abstract class Piece {//Essa classe representa as peças da camada de tabu
 		return possibleMoves()[position.getRow()][position.getColumn()];
 	}
 	
-	public boolean isThereanyPossibleMoves() {
+	public boolean isThereanyPossibleMoves() {//Esse método verifica se existem movimentos possíveis para data peça.
 		boolean[][] mat = possibleMoves();
 		for(int i=0;i<mat.length;i++) {
 			for(int j=0;j<mat.length;j++) {

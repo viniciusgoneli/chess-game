@@ -29,6 +29,7 @@ public class ChessMatch {
 		Position source = sourcePosition.toPosition();//A variável source recebe a posiçao de xadrez convertida para posição de matriz.
 		Position tarjet = targetPosition.toPosition();
 		validateSourcePosition(source);//Esse método verifica a existência de uma peça em dada posição.
+		validateTarjetPosition(source, tarjet);
 		Piece capturedPiece = makeMove(source, tarjet);//A peça capturada recebe o valor retornado pelo método que faz o movimento.
 		return (ChessPiece)capturedPiece;//A peça retornada é convertida para o tipo ChessPiece através de um downcasting.
 	}
@@ -44,8 +45,14 @@ public class ChessMatch {
 		if(!board.thereIsAPiece(position)) {
 			throw new ChessException("There is no piece in source position!");
 		}
-		if(!board.piece(position).isThereanyPossibleMoves()) {
+		if(!board.piece(position).isThereanyPossibleMoves()) {//Esse método lança uma excessão caso a peça de dada posição não possua movimentos disponíveis no tabuleiro.
 			throw new ChessException("There's no possible moves for the chosen pieces.");
+		}
+	}
+	
+	private void validateTarjetPosition(Position source,Position tarjet) {
+		if(!board.piece(source).possibleMove(tarjet)) {
+			throw new ChessException("The chosen piece can't move to tarjet position!");
 		}
 	}
 	
