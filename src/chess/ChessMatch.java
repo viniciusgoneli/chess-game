@@ -40,9 +40,12 @@ public class ChessMatch {
 		return capturedPiece;//O método retorna a peça que estava na posição de destino como uma peça capturada.
 	}
 	
-	public void validateSourcePosition(Position s) {
-		if(!board.thereIsAPiece(s)) {
+	public void validateSourcePosition(Position position) {
+		if(!board.thereIsAPiece(position)) {
 			throw new ChessException("There is no piece in source position!");
+		}
+		if(!board.piece(position).isThereanyPossibleMoves()) {
+			throw new ChessException("There's no possible moves for the chosen pieces.");
 		}
 	}
 	
