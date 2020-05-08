@@ -54,8 +54,8 @@ public class Board {//Essa classe controla as interações e funções executadas no
 		if(piece(position) == null) {
 			return null;
 		}else {
-			Piece aux = piece(position);
-			aux.position = null;
+			Piece aux = piece(position);//Uma variável auxiliar recebe o valor retornado pelo método piece em dada posição.
+			aux.position = null;//A posiçao da peça atribuída a var aux recebe valor nulo.
 			pieces[position.getRow()][position.getColumn()] = null;
 			return aux;
 		}

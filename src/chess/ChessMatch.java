@@ -15,7 +15,7 @@ public class ChessMatch {
 		initialSetup();
 	}
 	
-	public ChessPiece[][] getPieces(){
+	public ChessPiece[][] getPieces(){//Esse método simplesmente retorna a matriz de ChessPieces.
 		ChessPiece[][] mat = new ChessPiece[board.getRows()][board.getColumns()];
 		for(int i=0;i<board.getRows();i++) {
 			for(int j=0;j<board.getColumns();j++) {
@@ -25,19 +25,19 @@ public class ChessMatch {
 		return mat;
 	}
 	
-	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
-		Position source = sourcePosition.toPosition();
+	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {//Esse é o método responsável por executar o movimento de alguma peça e retornar uma peça capturada, caso exista. 
+		Position source = sourcePosition.toPosition();//A variável source recebe a posiçao de xadrez convertida para posição de matriz.
 		Position tarjet = targetPosition.toPosition();
-		validateSourcePosition(source);
-		Piece capturedPiece = makeMove(source, tarjet);
-		return (ChessPiece)capturedPiece;
+		validateSourcePosition(source);//Esse método verifica a existência de uma peça em dada posição.
+		Piece capturedPiece = makeMove(source, tarjet);//A peça capturada recebe o valor retornado pelo método que faz o movimento.
+		return (ChessPiece)capturedPiece;//A peça retornada é convertida para o tipo ChessPiece através de um downcasting.
 	}
 	
-	private Piece makeMove(Position source, Position tarjet) {
-		Piece p = board.removePiece(source);
-		Piece capturedPiece = board.removePiece(tarjet);
-		board.placePiece(p, tarjet);
-		return capturedPiece;
+	private Piece makeMove(Position source, Position tarjet) {//Esse é o método responsável por realizar o movimento. É um extensão do método acima.
+		Piece p = board.removePiece(source);//A peça 'p' é removida da posição de origem.
+		Piece capturedPiece = board.removePiece(tarjet);//A peça que está na posição de destino é removida.
+		board.placePiece(p, tarjet);//A peça 'p' que estava na posição de origem é colocada na posição de destino.
+		return capturedPiece;//O método retorna a peça que estava na posição de destino como uma peça capturada.
 	}
 	
 	public void validateSourcePosition(Position s) {

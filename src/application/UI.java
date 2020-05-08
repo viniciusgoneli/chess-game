@@ -10,10 +10,10 @@ public class UI {
 	
 	public static ChessPosition readChessPosition(Scanner sc) {
 		try {
-			String s = sc.nextLine();
-			char column = s.charAt(0);
-			int row = Integer.parseInt(s.substring(1));
-			return new ChessPosition(column, row);
+			String s = sc.nextLine();//A var 's' aguarda o valor digitado pelo usuário.
+			char column = s.charAt(0);//O primeiro caracter do texto digitado é dado como a coluna do tabuleiro.
+			int row = Integer.parseInt(s.substring(1));//O segundo caracter em diante é dado como a linha do tabuleiro. 
+			return new ChessPosition(column, row);//O método retorna a nova posição no formato de xadrez.
 		}
 		catch(RuntimeException e) {
 			throw new InputMismatchException("Error reading ChessPosition. Valid values are from a1 to h8.");

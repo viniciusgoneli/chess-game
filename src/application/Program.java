@@ -1,7 +1,9 @@
 package application;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import chess.ChessException;
 import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.ChessPosition;
@@ -13,16 +15,26 @@ public class Program {
 		
 		ChessMatch chessMatch = new ChessMatch();
 		while(true) {
-			UI.printBoard(chessMatch.getPieces());
-			System.out.println();
-			System.out.print("Source: ");
-			ChessPosition source = UI.readChessPosition(sc);
-			
-			System.out.println();
-			System.out.print("Tarjet: ");
-			ChessPosition tarjet = UI.readChessPosition(sc);
-			
-			ChessPiece capturedPiece = chessMatch.performChessMove(source, tarjet);
+			try {
+				UI.printBoard(chessMatch.getPieces());
+				System.out.println();
+				System.out.print("Source: ");
+				ChessPosition source = UI.readChessPosition(sc);//A posição retornada pelo método readChessPosition é definida como ponto de origem.
+				
+				System.out.println();
+				System.out.print("Tarjet: ");
+				ChessPosition tarjet = UI.readChessPosition(sc);
+				
+				ChessPiece capturedPiece = chessMatch.performChessMove(source, tarjet);//As posições retornadas são passadas como parâmetro para o método reponsável por converte-las e realizar o movimento delas.
+			}
+			catch(ChessException e) {
+				System.out.println(e.getMessage());
+				sc.nextLine();
+			}
+			catch(InputMismatchException e) {
+				System.out.println(e.getMessage());
+				sc.nextLine();
+			}
 		}
 		
 	}
