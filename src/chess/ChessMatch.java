@@ -25,6 +25,7 @@ public class ChessMatch {
 		return mat;
 	}
 	
+	
 	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {//Esse é o método responsável por executar o movimento de alguma peça e retornar uma peça capturada, caso exista. 
 		Position source = sourcePosition.toPosition();//A variável source recebe a posiçao de xadrez convertida para posição de matriz.
 		Position tarjet = targetPosition.toPosition();
