@@ -8,11 +8,23 @@ import chess.pieces.Rook;
 
 public class ChessMatch {
 	
+	private int turn = 0;
+	private Color currentPlayer;
 	private Board board;
 	
 	public ChessMatch() {
 		board = new Board(8, 8);
+		turn = 1;
+		currentPlayer = Color.WHITE;
 		initialSetup();
+	}
+	
+	public int getTurn() {
+		return this.turn;
+	}
+	
+	public Color getCurrentPlayer() {
+		return this.currentPlayer;
 	}
 	
 	public ChessPiece[][] getPieces(){//Esse método simplesmente retorna a matriz de ChessPieces.
@@ -25,6 +37,10 @@ public class ChessMatch {
 		return mat;
 	}
 	
+	private void nextTurn() {
+		turn++;
+		currentPlayer = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
+	}
 	
 	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {//Esse é o método responsável por executar o movimento de alguma peça e retornar uma peça capturada, caso exista. 
 		Position source = sourcePosition.toPosition();//A variável source recebe a posiçao de xadrez convertida para posição de matriz.
@@ -32,6 +48,7 @@ public class ChessMatch {
 		validateSourcePosition(source);//Esse método verifica a existência de uma peça em dada posição.
 		validateTarjetPosition(source, tarjet);
 		Piece capturedPiece = makeMove(source, tarjet);//A peça capturada recebe o valor retornado pelo método que faz o movimento.
+		nextTurn();
 		return (ChessPiece)capturedPiece;//A peça retornada é convertida para o tipo ChessPiece através de um downcasting.
 	}
 	
@@ -45,6 +62,9 @@ public class ChessMatch {
 	public void validateSourcePosition(Position position) {
 		if(!board.thereIsAPiece(position)) {
 			throw new ChessException("There is no piece in source position!");
+		}
+		if(currentPlayer != ((ChessPiece)board.piece(position)).getColor()) {
+			throw new ChessException("The chosen piece is not yours.");
 		}
 		if(!board.piece(position).isThereanyPossibleMoves()) {//Esse método lança uma excessão caso a peça de dada posição não possua movimentos disponíveis no tabuleiro.
 			throw new ChessException("There's no possible moves for the chosen pieces.");

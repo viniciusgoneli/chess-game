@@ -16,7 +16,7 @@ public class Program {
 		ChessMatch chessMatch = new ChessMatch();
 		while(true) {
 			try {
-				UI.printBoard(chessMatch.getPieces());
+				UI.printMatch(chessMatch);
 				System.out.println();
 				System.out.print("Source: ");
 				ChessPosition source = UI.readChessPosition(sc);//A posição retornada pelo método readChessPosition é definida como ponto de origem.
