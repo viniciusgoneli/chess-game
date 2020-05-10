@@ -1,5 +1,8 @@
 package chess;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import boardgame.Board;
 import boardgame.Piece;
 import boardgame.Position;
@@ -11,9 +14,12 @@ public class ChessMatch {
 	private int turn = 0;
 	private Color currentPlayer;
 	private Board board;
+	private List<Piece> _piecesOnTheBoard, _capturedPieces;
 	
 	public ChessMatch() {
 		board = new Board(8, 8);
+		_piecesOnTheBoard = new ArrayList<>();
+		_capturedPieces = new ArrayList<>();
 		turn = 1;
 		currentPlayer = Color.WHITE;
 		initialSetup();
@@ -37,7 +43,7 @@ public class ChessMatch {
 		return mat;
 	}
 	
-	private void nextTurn() {
+	private void nextTurn() {//Esse método aumenta o turno e muda o valor da peça atual.
 		turn++;
 		currentPlayer = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
 	}
@@ -56,6 +62,10 @@ public class ChessMatch {
 		Piece p = board.removePiece(source);//A peça 'p' é removida da posição de origem.
 		Piece capturedPiece = board.removePiece(tarjet);//A peça que está na posição de destino é removida.
 		board.placePiece(p, tarjet);//A peça 'p' que estava na posição de origem é colocada na posição de destino.
+		if(capturedPiece != null) {
+			_piecesOnTheBoard.remove(capturedPiece);
+			_capturedPieces.add(capturedPiece);
+		}
 		return capturedPiece;//O método retorna a peça que estava na posição de destino como uma peça capturada.
 	}
 	
@@ -79,6 +89,7 @@ public class ChessMatch {
 	
 	private void placeNewPiece(char column,int row,ChessPiece piece) {
 		board.placePiece(piece, new ChessPosition(column, row).toPosition());
+		_piecesOnTheBoard.add(piece);
 	}
 	
 	private void initialSetup() {

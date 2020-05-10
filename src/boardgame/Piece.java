@@ -11,7 +11,7 @@ public abstract class Piece {//Essa classe representa as peças da camada de tabu
 	}
 
 	protected Board getBoard() {
-		return board;
+		return this.board;
 	}
 	
 	public abstract boolean[][] possibleMoves();

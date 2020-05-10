@@ -19,7 +19,7 @@ public class King extends ChessPiece {
 	
 	private boolean canMove(Position position) {
 		ChessPiece p = (ChessPiece)getBoard().piece(position);
-		return p == null || p.getColor() != getColor();
+		return p == null || p.getColor() != getColor();//O rei só pode ser movido para a posição p se essa posição for nula ou não tiver uma peça da mesma cor que a dele.
 	}
 
 	@Override
