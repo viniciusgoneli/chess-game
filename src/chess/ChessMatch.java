@@ -8,6 +8,7 @@ import boardgame.Board;
 import boardgame.Piece;
 import boardgame.Position;
 import chess.pieces.King;
+import chess.pieces.Pawn;
 import chess.pieces.Rook;
 
 public class ChessMatch {
@@ -84,7 +85,8 @@ public class ChessMatch {
 	}
 
 	private Piece makeMove(Position source, Position tarjet) {
-		Piece p = board.removePiece(source);
+		ChessPiece p = (ChessPiece)board.removePiece(source);
+		p.increaseMoveCount();
 		Piece capturedPiece = board.removePiece(tarjet);
 		board.placePiece(p, tarjet);
 		if (capturedPiece != null) {
@@ -95,7 +97,8 @@ public class ChessMatch {
 	}
 
 	private void undoMove(Position source, Position tarjet, Piece capturedPiece) {
-		Piece p = board.removePiece(tarjet);
+		ChessPiece p = (ChessPiece)board.removePiece(tarjet);
+		p.decreaseMoveCount();
 		board.placePiece(p, source);
 		if (capturedPiece != null) {
 			_capturedPieces.remove(capturedPiece);
@@ -187,7 +190,11 @@ public class ChessMatch {
 		placeNewPiece('h', 7, new Rook(board, Color.WHITE));
 		placeNewPiece('d', 1, new Rook(board, Color.WHITE));
 		placeNewPiece('e', 1, new King(board, Color.WHITE));
+		placeNewPiece('b', 3, new Pawn(board, Color.WHITE));
 
+		placeNewPiece('c', 4, new Pawn(board, Color.BLACK));
+		placeNewPiece('a', 4, new Pawn(board, Color.BLACK));
+		placeNewPiece('b', 4, new Pawn(board, Color.BLACK));
 		placeNewPiece('b', 8, new Rook(board, Color.BLACK));
 		placeNewPiece('a', 8, new King(board, Color.BLACK));
 	}
