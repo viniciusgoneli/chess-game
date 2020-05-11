@@ -18,7 +18,7 @@ public class Program {
 		ChessMatch chessMatch = new ChessMatch();
 		
 		while(true) {
-			try {
+			//try {
 				UI.printMatch(chessMatch, captured);//Printa o software na tela.
 				System.out.println();
 				System.out.print("Source: ");
@@ -32,15 +32,15 @@ public class Program {
 				if(capturedPiece != null) {
 					captured.add(capturedPiece);
 				}
-			}
-			catch(ChessException e) {
+			//}
+			/*catch(ChessException e) {
 				System.out.println(e.getMessage());
 				sc.nextLine();
 			}
 			catch(InputMismatchException e) {
 				System.out.println(e.getMessage());
 				sc.nextLine();
-			}
+			}*/
 		}
 		
 	}
