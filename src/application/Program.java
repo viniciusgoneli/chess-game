@@ -17,8 +17,8 @@ public class Program {
 		List <ChessPiece> captured = new ArrayList<>();
 		ChessMatch chessMatch = new ChessMatch();
 		
-		while(true) {
-			//try {
+		while(!chessMatch.getCheckMate()) {
+			try {
 				UI.printMatch(chessMatch, captured);//Printa o software na tela.
 				System.out.println();
 				System.out.print("Source: ");
@@ -32,16 +32,17 @@ public class Program {
 				if(capturedPiece != null) {
 					captured.add(capturedPiece);
 				}
-			//}
-			/*catch(ChessException e) {
+			}
+			catch(ChessException e) {
 				System.out.println(e.getMessage());
 				sc.nextLine();
 			}
 			catch(InputMismatchException e) {
 				System.out.println(e.getMessage());
 				sc.nextLine();
-			}*/
+			}
 		}
+		UI.printMatch(chessMatch, captured);
 		
 	}
 
