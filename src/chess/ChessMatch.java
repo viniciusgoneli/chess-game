@@ -71,6 +71,7 @@ public class ChessMatch {
 			throw new ChessException("You cannot put your king in check!");	
 		}
 		
+		
 		check = (testCheck(Opponent(currentPlayer))) ? true : false;
 		
 		if(testCheckMate(Opponent(currentPlayer))) {
@@ -111,9 +112,7 @@ public class ChessMatch {
 		if (currentPlayer != ((ChessPiece) board.piece(position)).getColor()) {
 			throw new ChessException("The chosen piece is not yours.");
 		}
-		if (!board.piece(position).isThereanyPossibleMoves()) {// Esse método lança uma excessão caso a peça de dada
-																// posição não possua movimentos disponíveis no
-																// tabuleiro.
+		if (!board.piece(position).isThereanyPossibleMoves()) {
 			throw new ChessException("There's no possible moves for the chosen pieces.");
 		}
 	}
@@ -122,7 +121,6 @@ public class ChessMatch {
 		if (!board.piece(source).possibleMove(tarjet)) {
 			throw new ChessException("The chosen piece can't move to tarjet position!");
 		}
-
 	}
 
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
@@ -139,10 +137,10 @@ public class ChessMatch {
 	}
 
 	private ChessPiece king(Color color) {
-		for (int i = 0; i < _piecesOnTheBoard.size(); i++) {
-			ChessPiece e = (ChessPiece) _piecesOnTheBoard.get(i);
-			if (e instanceof King && e.getColor() == color) {
-				return e;
+		List<Piece> currentPieces = _piecesOnTheBoard.stream().filter(x -> ((ChessPiece)x).getColor() == color).collect(Collectors.toList());
+		for (Piece p : currentPieces) {
+			if (p instanceof King) {
+				return (ChessPiece)p;
 			}
 		}
 		throw new IllegalStateException("There is no " + color + " king on the board.");
